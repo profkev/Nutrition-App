@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Meal Plans</h1>
+    <ul class="list-group">
+        {% for plan in meal_plans %}
+        <li class="list-group-item">
+            <strong>{{ plan.date }}</strong>
+            <ul>
+                {% for meal in plan.meals %}
+                <li>{{ meal.meal_type }}: {{ meal.description }} ({{ meal.calories }} calories)</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/create_mealplan" class="btn btn-success">Create New Meal Plan</a>
+</div>
+{% endblock %}

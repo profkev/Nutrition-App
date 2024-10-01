@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Shopping List</h2>
+    <!-- Assuming 'shopping_list_view' is the correct route to handle POST requests -->
+<form action="{{ url_for('shopping_list_view') }}" method="post">
+
+        <div class="mb-3">
+            <label for="item_name" class="form-label">Item Name</label>
+            <input type="text" class="form-control" id="item_name" name="item_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" name="category">
+        </div>
+        <button type="submit" class="btn btn-primary">Add to List</button>
+    </form>
+
+    <ul class="list-group mt-4">
+        {% for item in shopping_list %}
+        <li class="list-group-item">
+            {{ item.name }} - {{ item.quantity }} ({{ item.category }})
+            <button type="button" class="btn btn-danger btn-sm float-right">Delete</button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

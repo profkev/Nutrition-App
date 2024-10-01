@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="preferences-section">
+        <div class="preferences-header">
+            <h2>Your Dietary Preferences</h2>
+            <p>Manage your dietary preferences and restrictions</p>
+        </div>
+        <form action="{{ url_for('preferences_view') }}" method="post"> <!-- Use 'preferences_view' as the form action -->
+            <div class="mb-3">
+                <label for="allergies" class="form-label">Allergies</label>
+                <input type="text" class="form-control" id="allergies" name="allergies" value="{{ preferences.allergies }}" autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label for="caloricNeeds" class="form-label">Caloric Needs (per day)</label>
+                <input type="number" class="form-control" id="caloricNeeds" name="caloricNeeds" value="{{ preferences.caloricNeeds }}" required autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label for="nutritionalGoals" class="form-label">Nutritional Goals</label>
+                <textarea class="form-control" id="nutritionalGoals" name="nutritionalGoals" rows="3" autocomplete="off">{{ preferences.nutritionalGoals }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="dietaryRestrictions" class="form-label">Dietary Restrictions</label>
+                <textarea class="form-control" id="dietaryRestrictions" name="dietaryRestrictions" rows="3" autocomplete="off">{{ preferences.dietaryRestrictions }}</textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="save-button">Save Preferences</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

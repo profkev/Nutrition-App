@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Update Nutritional Information</h2>
+    <form method="post">
+        <!-- Form fields for updating nutritional information -->
+        <div class="mb-3">
+            <label for="foodItem" class="form-label">Food Item</label>
+            <input type="text" class="form-control" id="foodItem" name="foodItem" required>
+        </div>
+        <div class="mb-3">
+            <label for="calories" class="form-label">Calories</label>
+            <input type="number" class="form-control" id="calories" name="calories" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Info</button>
+    </form>
+</div>
+{% endblock %}

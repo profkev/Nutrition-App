@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Recipes</h1>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.name }}</h5>
+                    <p class="card-text">{{ recipe.instructions }}</p>
+                    <ul class="list-group">
+                        {% for ingredient in recipe.ingredients %}
+                        <li class="list-group-item">{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="/save_favorite/{{ recipe._id }}" class="btn btn-primary mt-3">Save as Favorite</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

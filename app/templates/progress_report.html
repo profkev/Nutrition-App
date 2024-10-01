@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <h2 class="mb-4">Your Progress</h2>
+
+    <!-- Placeholder for a dynamic chart rendered with Chart.js or similar -->
+    <div class="chart-container">
+        <canvas id="weightProgressChart"></canvas>
+    </div>
+
+    <!-- Form to filter or change the displayed data -->
+    <div class="mt-5">
+        <h3>Update Progress Report</h3>
+        <form method="post" action="{{ url_for('progress_report_view') }}">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Update Report</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Link to include Chart.js (or other library) and script to draw the chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('weightProgressChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line', // You can choose the chart type (e.g., line, bar, etc.)
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'], // Example data
+            datasets: [{
+                label: 'Weight Progress (kg)',
+                data: [70, 69, 68, 67, 66, 65], // Example data points
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                tension: 0.4 // Smooths out the line chart
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+    .chart-container {
+        position: relative;
+        height: 50vh;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .alert-container {
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
